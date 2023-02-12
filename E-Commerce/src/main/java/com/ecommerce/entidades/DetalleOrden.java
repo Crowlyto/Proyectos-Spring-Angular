@@ -7,6 +7,7 @@ package com.ecommerce.entidades;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /**
@@ -26,7 +27,7 @@ public class DetalleOrden {
 
     @OneToOne
     private Orden orden;
-    @OneToOne
+    @ManyToOne
     private Producto producto;
 
     public Producto getProducto() {
