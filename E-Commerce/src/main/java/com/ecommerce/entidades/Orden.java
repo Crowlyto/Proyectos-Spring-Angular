@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -16,7 +19,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class Orden {
-    
+
     @Id
     @GeneratedValue(generator = "uuid")
     private String id;
@@ -24,6 +27,29 @@ public class Orden {
     private Date fechaCreacion;
     private Date fechaRecibida;
     private double total;
+    @ManyToOne
+    private Usuario usuario;
+    @OneToOne(mappedBy = "orden")
+    private DetalleOrden detalle;
+
+    public Orden() {
+    }
+
+    public DetalleOrden getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(DetalleOrden detalle) {
+        this.detalle = detalle;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
     public String getId() {
         return id;
@@ -65,8 +91,4 @@ public class Orden {
         this.total = total;
     }
 
-    public Orden() {
-    }
-    
-    
 }

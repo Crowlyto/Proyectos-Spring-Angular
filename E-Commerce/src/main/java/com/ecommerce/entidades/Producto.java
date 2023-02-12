@@ -7,6 +7,7 @@ package com.ecommerce.entidades;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -14,7 +15,7 @@ import javax.persistence.Id;
  */
 @Entity
 public class Producto {
-    
+
     @Id
     @GeneratedValue(generator = "uuid")
     private String id;
@@ -23,6 +24,8 @@ public class Producto {
     private String imagen;
     private double precio;
     private int cantidad;
+    @ManyToOne
+    private Usuario usuario;
 
     public Producto() {
     }
@@ -34,8 +37,6 @@ public class Producto {
     public void setId(String id) {
         this.id = id;
     }
-
-    
 
     public String getNombre() {
         return nombre;
@@ -76,6 +77,12 @@ public class Producto {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    
-    
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }
