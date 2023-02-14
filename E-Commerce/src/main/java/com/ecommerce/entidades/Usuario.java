@@ -7,6 +7,7 @@ package com.ecommerce.entidades;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -18,8 +19,8 @@ import javax.persistence.OneToMany;
 public class Usuario {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String nombre;
     private String username;
     private String email;
@@ -31,22 +32,25 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Orden> ordenes;
 
-    public List<Producto> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
+    public Usuario(Integer id, String nombre, String username, String email, String telefono, String rol, String password) {
+        super();
+        this.id = id;
+        this.nombre = nombre;
+        this.username = username;
+        this.email = email;
+        this.telefono = telefono;
+        this.rol = rol;
+        this.password = password;
     }
 
     public Usuario() {
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -98,4 +102,30 @@ public class Usuario {
         this.password = password;
     }
 
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
+
+    public List<Orden> getOrdenes() {
+        return ordenes;
+    }
+
+    public void setOrdenes(List<Orden> ordenes) {
+        this.ordenes = ordenes;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "id=" + id + ", nombre=" + nombre + ", username=" + username + ", email=" + email + ", telefono=" + telefono + ", rol=" + rol + ", password=" + password + ", productos=" + productos + ", ordenes=" + ordenes + '}';
+    }
+    
+
+  
+
+    
+    
 }

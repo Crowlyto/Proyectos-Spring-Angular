@@ -6,6 +6,7 @@ package com.ecommerce.entidades;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
@@ -17,8 +18,8 @@ import javax.persistence.ManyToOne;
 public class Producto {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String nombre;
     private String descripcion;
     private String imagen;
@@ -27,14 +28,25 @@ public class Producto {
     @ManyToOne
     private Usuario usuario;
 
+    public Producto(Integer id, String nombre, String descripcion, String imagen, double precio, int cantidad, Usuario usuario) {
+        super();
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.imagen = imagen;
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.usuario = usuario;
+    }
+
     public Producto() {
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -85,6 +97,8 @@ public class Producto {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    
 
     @Override
     public String toString() {

@@ -5,6 +5,7 @@
 package com.ecommerce.servicios;
 
 import com.ecommerce.entidades.Producto;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public interface ProductoServicio {
     public Optional<Producto> get(String id);
     public void update(Producto producto);
     public void delete(String id);
+    public List<Producto> findAll();
     
     
     

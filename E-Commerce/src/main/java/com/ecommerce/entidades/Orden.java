@@ -21,8 +21,8 @@ import javax.persistence.OneToOne;
 public class Orden {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String numero;
     private Date fechaCreacion;
     private Date fechaRecibida;
@@ -35,27 +35,20 @@ public class Orden {
     public Orden() {
     }
 
-    public DetalleOrden getDetalle() {
-        return detalle;
+    public Orden(Integer id, String numero, Date fechaCreacion, Date fechaRecibida, double total) {
+        super();
+        this.id = id;
+        this.numero = numero;
+        this.fechaCreacion = fechaCreacion;
+        this.fechaRecibida = fechaRecibida;
+        this.total = total;
     }
 
-    public void setDetalle(DetalleOrden detalle) {
-        this.detalle = detalle;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -91,4 +84,28 @@ public class Orden {
         this.total = total;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public DetalleOrden getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(DetalleOrden detalle) {
+        this.detalle = detalle;
+    }
+
+    @Override
+    public String toString() {
+        return "Orden{" + "id=" + id + ", numero=" + numero + ", fechaCreacion=" + fechaCreacion + ", fechaRecibida=" + fechaRecibida + ", total=" + total + '}';
+    }
+    
+    
+
+   
 }
