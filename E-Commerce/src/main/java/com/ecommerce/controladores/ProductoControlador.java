@@ -57,15 +57,7 @@ public class ProductoControlador {
             String nombreImagen = upload.saveImage(file);
             producto.setImagen(nombreImagen);
         } else {
-            if (file.isEmpty()) {//cuando se edita el producto pero no cambiamos la imagen
-                Producto p = new Producto();
-                p = servP.get(producto.getId()).get();
-                producto.setImagen(p.getImagen());
 
-            } else {
-                  String nombreImagen = upload.saveImage(file);
-            producto.setImagen(nombreImagen);
-            }
         }
         servP.save(producto);
         return "redirect:/productos";
@@ -82,14 +74,34 @@ public class ProductoControlador {
         return "productos/edit";
     }
 
+    //hay que revisar el metodo de modificar o cargar imagen porque borra la defaul.jpg cuando np deberia y me borra el usuario why? no se
     @PostMapping("/update")
-    public String update(Producto producto) {
+    public String update(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
+        Producto p = new Producto();
+        p = servP.get(producto.getId()).get();
+        if (file.isEmpty()) {//cuando se edita el producto pero no cambiamos la imagen
+            producto.setImagen(p.getImagen());
+        } else {//Cuando se edita tambien la imagen
+            //Eliminar cuando no sea la imagen por defecto
+            if (!p.getImagen().equals("defaul.jpg")) {
+                upload.deleteImage(p.getImagen());
+            }
+            String nombreImagen = upload.saveImage(file);
+            producto.setImagen(nombreImagen);
+        }
+        producto.setUsuario(producto.getUsuario());
         servP.update(producto);
         return "redirect:/productos";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id) {
+        Producto p = new Producto();
+        p = servP.get(id).get();
+        //Eliminar cuando no sea la imagen por defecto
+        if (!p.getImagen().equals("defaul.jpg")) {
+            upload.deleteImage(p.getImagen());
+        }
         servP.delete(id);
         return "redirect:/productos";
     }
