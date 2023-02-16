@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class ProductoServicioImpl implements ProductoServicio {
 
     @Autowired
-    public ProductoRepositorio repoP;
+    private ProductoRepositorio repoP;
 
     @Override
     public Producto save(Producto producto) {
@@ -28,7 +28,7 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
-    public Optional<Producto> get(String id) {
+    public Optional<Producto> get(Integer id) {
         
         return repoP.findById(id);
     }
@@ -41,7 +41,7 @@ public class ProductoServicioImpl implements ProductoServicio {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(Integer id) {
         
         repoP.deleteById(id);
 

@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 public interface ProductoServicio {
     
     public Producto save(Producto producto);
-    public Optional<Producto> get(String id);
+    public Optional<Producto> get(Integer id);
     public void update(Producto producto);
-    public void delete(String id);
+    public void delete(Integer id);
     public List<Producto> findAll();
     
     

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
  * @author crowl
  */
 @Repository
-public interface ProductoRepositorio extends JpaRepository<Producto, String>{
+public interface ProductoRepositorio extends JpaRepository<Producto, Integer>{
     
     
     
