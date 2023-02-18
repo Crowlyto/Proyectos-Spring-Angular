@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author crowl
  */
 
-public interface ProductoServicio {
+public interface IProductoServicio {
     
     public Producto save(Producto producto);
     public Optional<Producto> get(Integer id);

@@ -6,7 +6,6 @@ package com.ecommerce.controladores;
 
 import com.ecommerce.entidades.Producto;
 import com.ecommerce.entidades.Usuario;
-import com.ecommerce.servicios.ProductoServicio;
 import com.ecommerce.servicios.UploadFileServicio;
 import java.io.IOException;
 import java.util.Optional;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import com.ecommerce.servicios.IProductoServicio;
 
 /**
  *
@@ -31,7 +31,7 @@ public class ProductoControlador {
 
     private final Logger LOGGER = LoggerFactory.getLogger(ProductoControlador.class);
     @Autowired
-    private ProductoServicio servP;
+    private IProductoServicio servP;
 
     @Autowired
     private UploadFileServicio upload;
@@ -50,7 +50,7 @@ public class ProductoControlador {
     @PostMapping("/save")
     public String save(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
 
-        Usuario user = new Usuario(1, "", "", "", "", "", "");
+        Usuario user = new Usuario(1, "", "", "", "", "", "","");
         producto.setUsuario(user);
         //imagen
         if (producto.getId() == null) {//cuando se crea un producto

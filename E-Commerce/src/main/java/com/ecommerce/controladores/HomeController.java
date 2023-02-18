@@ -9,7 +9,6 @@ import com.ecommerce.entidades.Orden;
 import com.ecommerce.entidades.Producto;
 import com.ecommerce.entidades.Usuario;
 import com.ecommerce.servicios.IUsuarioServicio;
-import com.ecommerce.servicios.ProductoServicio;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.ecommerce.servicios.IProductoServicio;
 
 /**
  *
@@ -35,7 +35,7 @@ public class HomeController {
     private final Logger log = LoggerFactory.getLogger(HomeController.class);
 
     @Autowired
-    private ProductoServicio servP;
+    private IProductoServicio servP;
     @Autowired
     private IUsuarioServicio servU;
 

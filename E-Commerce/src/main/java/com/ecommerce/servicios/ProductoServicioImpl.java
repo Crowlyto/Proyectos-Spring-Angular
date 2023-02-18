@@ -5,21 +5,21 @@
 package com.ecommerce.servicios;
 
 import com.ecommerce.entidades.Producto;
-import com.ecommerce.repositorio.ProductoRepositorio;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.ecommerce.repositorio.IProductoRepositorio;
 
 /**
  *
  * @author crowl
  */
 @Service
-public class ProductoServicioImpl implements ProductoServicio {
+public class ProductoServicioImpl implements IProductoServicio {
 
     @Autowired
-    private ProductoRepositorio repoP;
+    private IProductoRepositorio repoP;
 
     @Override
     public Producto save(Producto producto) {
