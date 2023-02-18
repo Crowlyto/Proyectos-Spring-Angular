@@ -27,12 +27,13 @@ public class Usuario {
     private String telefono;
     private String rol;
     private String password;
+    private String direccion;
     @OneToMany(mappedBy = "usuario")
     private List<Producto> productos;
     @OneToMany(mappedBy = "usuario")
     private List<Orden> ordenes;
 
-    public Usuario(Integer id, String nombre, String username, String email, String telefono, String rol, String password) {
+    public Usuario(Integer id, String nombre, String username, String email, String telefono, String rol, String password, String direccion) {
         super();
         this.id = id;
         this.nombre = nombre;
@@ -41,6 +42,7 @@ public class Usuario {
         this.telefono = telefono;
         this.rol = rol;
         this.password = password;
+        this.direccion=direccion;
     }
 
     public Usuario() {
@@ -116,6 +118,14 @@ public class Usuario {
 
     public void setOrdenes(List<Orden> ordenes) {
         this.ordenes = ordenes;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
 
     @Override

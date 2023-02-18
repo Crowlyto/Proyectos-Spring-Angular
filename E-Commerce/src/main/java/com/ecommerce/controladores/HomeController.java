@@ -7,6 +7,8 @@ package com.ecommerce.controladores;
 import com.ecommerce.entidades.DetalleOrden;
 import com.ecommerce.entidades.Orden;
 import com.ecommerce.entidades.Producto;
+import com.ecommerce.entidades.Usuario;
+import com.ecommerce.servicios.IUsuarioServicio;
 import com.ecommerce.servicios.ProductoServicio;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,8 @@ public class HomeController {
 
     @Autowired
     private ProductoServicio servP;
+    @Autowired
+    private IUsuarioServicio servU;
 
     //Almacenar detalles de la orden
     List<DetalleOrden> detalles = new ArrayList();
@@ -115,7 +119,12 @@ public class HomeController {
     }
     
     @GetMapping("/order")
-    public String order(){
+    public String order(Model model){
+        Usuario usuario=servU.findById(1).get();
+        
+        model.addAttribute("cart", detalles);
+        model.addAttribute("orden", orden);
+        model.addAttribute("usuario", usuario);
         
         return "usuario/resumenorden";
     }
