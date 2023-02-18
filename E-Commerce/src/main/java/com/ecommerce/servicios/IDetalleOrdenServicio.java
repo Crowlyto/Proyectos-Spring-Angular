@@ -11,5 +11,6 @@ import com.ecommerce.entidades.DetalleOrden;
  * @author crowl
  */
 public interface IDetalleOrdenServicio {
+    
     DetalleOrden save(DetalleOrden detalleOrden);
 }

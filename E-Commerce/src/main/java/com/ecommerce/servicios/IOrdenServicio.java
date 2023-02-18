@@ -5,13 +5,14 @@
 package com.ecommerce.servicios;
 
 import com.ecommerce.entidades.Orden;
+import java.util.List;
 
 /**
  *
  * @author crowl
  */
 public interface IOrdenServicio {
-    
+    List<Orden> findAll();
     Orden save(Orden orden);
     
 }
