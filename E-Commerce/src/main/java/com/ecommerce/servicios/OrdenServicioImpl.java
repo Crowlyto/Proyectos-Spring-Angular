@@ -22,7 +22,6 @@ public class OrdenServicioImpl implements IOrdenServicio {
     @Override
     public Orden save(Orden orden) {
         return repoO.save(orden);
-
     }
 
     @Override

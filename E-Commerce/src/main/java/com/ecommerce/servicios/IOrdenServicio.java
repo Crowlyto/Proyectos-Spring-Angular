@@ -14,5 +14,6 @@ import java.util.List;
 public interface IOrdenServicio {
     List<Orden> findAll();
     Orden save(Orden orden);
+    String generarNumeroOrden();
     
 }
