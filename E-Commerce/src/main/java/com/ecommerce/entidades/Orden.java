@@ -5,7 +5,9 @@
 package com.ecommerce.entidades;
 
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +31,11 @@ public class Orden {
     private double total;
     @ManyToOne
     private Usuario usuario;
-    @OneToOne(mappedBy = "orden")
+    //Las siguientes anotaciones no me generan una orden porque no me traen mas de dos filas de BBDD
+    //@OneToOne(mappedBy = "orden")
+    //@OneToOne(mappedBy = "orden", cascade = CascadeType.ALL, orphanRemoval = true)
+    //-> Como hay mas de un propducto de diferente tipo uso
+    @OneToOne(fetch = FetchType.LAZY)
     private DetalleOrden detalle;
 
     public Orden() {

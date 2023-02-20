@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ecommerce.servicios.IProductoServicio;
+import com.ecommerce.servicios.IUsuarioServicio;
+import com.ecommerce.servicios.UsuarioServicioImpl;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,6 +38,8 @@ public class ProductoController {
 
     @Autowired
     private UploadFileServicio upload;
+    @Autowired
+    private IUsuarioServicio servU;
 
     @GetMapping("")
     public String show(Model model) {
@@ -48,9 +53,9 @@ public class ProductoController {
     }
 
     @PostMapping("/save")
-    public String save(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
+    public String save(Producto producto, @RequestParam("img") MultipartFile file, HttpSession session) throws IOException {
 
-        Usuario user = new Usuario(1, "", "", "", "", "", "","");
+        Usuario user = servU.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
         producto.setUsuario(user);
         //imagen
         if (producto.getId() == null) {//cuando se crea un producto

@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ecommerce.servicios.IProductoServicio;
 import java.util.Date;
 import java.util.stream.Collectors;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -53,7 +54,8 @@ public class HomeController {
     Orden orden = new Orden();
 
     @GetMapping("")
-    public String home(Model model) {
+    public String home(Model model, HttpSession session) {
+        log.info("Session usuario: {}", session.getAttribute("idUsuario"));
         model.addAttribute("productos", servP.findAll());
         return "usuario/home";
     }
@@ -127,9 +129,9 @@ public class HomeController {
     }
     
     @GetMapping("/order")
-    public String order(Model model){
+    public String order(Model model, HttpSession session){
         //Momentaneamente hasta tener usuarios, forma quemada
-        Usuario usuario=servU.findById(1).get();
+        Usuario usuario=servU.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
         
         model.addAttribute("cart", detalles);
         model.addAttribute("orden", orden);
@@ -139,12 +141,12 @@ public class HomeController {
     }
     
     @GetMapping("/saveOrder")
-    public String saveOrder(){
+    public String saveOrder(HttpSession session){
         Date fechaCreacion=new Date();
         orden.setFechaCreacion(fechaCreacion);
         orden.setNumero(servO.generarNumeroOrden());
         //Momentaneamente hasta tener usuarios, forma quemada
-        Usuario usuario=servU.findById(1).get();
+        Usuario usuario=servU.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
         orden.setUsuario(usuario);
         servO.save(orden);
         //Guardar detalles
