@@ -23,6 +23,11 @@ public class UsuarioServicioImpl implements IUsuarioServicio{
     public Optional<Usuario> findById(Integer id) {
         return repoU.findById(id);
     }
+
+    @Override
+    public Usuario save(Usuario usuario) {
+    return repoU.save(usuario);
+    }
     
     
     

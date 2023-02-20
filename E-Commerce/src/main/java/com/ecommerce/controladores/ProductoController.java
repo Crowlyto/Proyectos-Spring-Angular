@@ -27,9 +27,9 @@ import com.ecommerce.servicios.IProductoServicio;
  */
 @Controller
 @RequestMapping("/productos")
-public class ProductoControlador {
+public class ProductoController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(ProductoControlador.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(ProductoController.class);
     @Autowired
     private IProductoServicio servP;
 

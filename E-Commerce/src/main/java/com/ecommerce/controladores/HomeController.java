@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.ecommerce.servicios.IProductoServicio;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -155,5 +156,13 @@ public class HomeController {
         orden=new Orden();
         detalles.clear();
         return "redirect:/";
+    }
+    
+    @PostMapping("/search")
+    public String searchProducto(@RequestParam String busqueda, Model model){
+        log.info("Nombre del Producto: {}", busqueda);
+        List<Producto>productos=servP.findAll().stream().filter(p->p.getNombre().contains(busqueda)).collect(Collectors.toList());
+        model.addAttribute("productos",productos);
+        return "usuario/home";
     }
 }
