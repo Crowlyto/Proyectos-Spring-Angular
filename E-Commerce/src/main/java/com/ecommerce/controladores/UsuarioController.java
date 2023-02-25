@@ -4,8 +4,11 @@
  */
 package com.ecommerce.controladores;
 
+import com.ecommerce.entidades.Orden;
 import com.ecommerce.entidades.Usuario;
+import com.ecommerce.servicios.IOrdenServicio;
 import com.ecommerce.servicios.IUsuarioServicio;
+import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
 import net.bytebuddy.dynamic.DynamicType;
@@ -29,6 +32,8 @@ public class UsuarioController {
     private final Logger log = LoggerFactory.getLogger(UsuarioController.class);
     @Autowired
     private IUsuarioServicio servU;
+    @Autowired
+    private IOrdenServicio servO;
 
     @GetMapping("/registro")
     public String create() {
@@ -75,6 +80,9 @@ public class UsuarioController {
     @GetMapping("/compras")
     public String obtenerCompras(HttpSession session, Model model) {
         model.addAttribute("session", session.getAttribute("idUsuario"));
+        Usuario usuario=servU.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
+        List<Orden> ordenes=servO.findByUsuario(usuario);
+        model.addAttribute("ordenes", ordenes);
 
         return "usuario/compras";
     }

@@ -5,6 +5,7 @@
 package com.ecommerce.servicios;
 
 import com.ecommerce.entidades.Orden;
+import com.ecommerce.entidades.Usuario;
 import com.ecommerce.repositorio.IOrdenRepositorio;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,11 @@ public class OrdenServicioImpl implements IOrdenServicio {
             numeroConcatenado="000000"+String.valueOf(numero);
         }
         return numeroConcatenado;
+    }
+
+    @Override
+    public List<Orden> findByUsuario(Usuario usuario) {
+    return repoO.findByUsuario(usuario);
     }
 
 }
