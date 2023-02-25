@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,44 +25,57 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
-    
-    private final Logger log=LoggerFactory.getLogger(UsuarioController.class);
+
+    private final Logger log = LoggerFactory.getLogger(UsuarioController.class);
     @Autowired
     private IUsuarioServicio servU;
-    
-    
+
     @GetMapping("/registro")
-    public String create(){
+    public String create() {
         return "usuario/registro";
     }
-    
+
     @PostMapping("/save")
-    public String save(Usuario usuario){
+    public String save(Usuario usuario) {
         log.info("Usuario registro: {}", usuario);
-        
+
         usuario.setRol("USER");
         servU.save(usuario);
         return "redirect:/";
     }
+
     @GetMapping("/login")
-    public String login(){
-        
+    public String login() {
+
         return "usuario/login";
     }
+
     @PostMapping("/acces")
-    public String acces(Usuario usuario, HttpSession session){
+    public String acces(Usuario usuario, HttpSession session) {
         log.info("Acceso : {}", usuario);
-        Optional<Usuario> user=servU.findByEmail(usuario.getEmail());
-        //log.info("Usuario de db: {}",user.get());
-        if(user.isPresent()){
-                session.setAttribute("idUsuario", user.get().getId());
-                if(user.get().getRol().equals("ADMIN")){
-                    return "redirect:/administrador";
-                }else{
-                    return "redirect:/";
-                }
-                
-                }
-        return "redirect:/";
+        Optional<Usuario> user = servU.findByEmail(usuario.getEmail());
+
+        if (user.isPresent()) {
+            session.setAttribute("idUsuario", user.get().getId());
+            System.out.println(user);
+            if (user.get().getRol().equals("ADMIN")) {
+                return "redirect:/administrador";
+            } else {
+                return "redirect:/";
+            }
+
+        } else {
+            log.info("Usuario no existe");
+            return "redirect:/";
+
+        }
+        
+    }
+    
+    @GetMapping("/compras")
+    public String obtenerCompras(HttpSession session, Model model) {
+        model.addAttribute("session", session.getAttribute("idUsuario"));
+
+        return "usuario/compras";
     }
 }

@@ -88,7 +88,7 @@ public class ProductoController {
             producto.setImagen(p.getImagen());
         } else {//Cuando se edita tambien la imagen
             //Eliminar cuando no sea la imagen por defecto
-            if (!p.getImagen().equals("defaul.jpg")) {
+            if (!p.getImagen().equals("default.jpg")) {
                 upload.deleteImage(p.getImagen());
             }
             String nombreImagen = upload.saveImage(file);
@@ -104,7 +104,7 @@ public class ProductoController {
         Producto p = new Producto();
         p = servP.get(id).get();
         //Eliminar cuando no sea la imagen por defecto
-        if (!p.getImagen().equals("defaul.jpg")) {
+        if (!p.getImagen().equals("default.jpg")) {
             upload.deleteImage(p.getImagen());
         }
         servP.delete(id);
