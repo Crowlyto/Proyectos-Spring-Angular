@@ -5,6 +5,7 @@
 package com.ecommerce.entidades;
 
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -34,8 +36,9 @@ public class Orden {
     //@OneToOne(mappedBy = "orden")
     //@OneToOne(mappedBy = "orden", cascade = CascadeType.ALL, orphanRemoval = true)
     //-> Como hay mas de un propducto de diferente tipo uso
-    @OneToOne(fetch = FetchType.LAZY)
-    private DetalleOrden detalle;
+    //@OneToOne(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy ="orden")
+    private List<DetalleOrden> detalle;
 
     public Orden() {
     }
@@ -97,13 +100,15 @@ public class Orden {
         this.usuario = usuario;
     }
 
-    public DetalleOrden getDetalle() {
+    public List<DetalleOrden> getDetalle() {
         return detalle;
     }
 
-    public void setDetalle(DetalleOrden detalle) {
+    public void setDetalle(List<DetalleOrden> detalle) {
         this.detalle = detalle;
     }
+
+   
 
     @Override
     public String toString() {
