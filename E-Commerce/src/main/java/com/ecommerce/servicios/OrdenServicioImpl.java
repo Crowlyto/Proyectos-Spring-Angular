@@ -64,7 +64,9 @@ public class OrdenServicioImpl implements IOrdenServicio {
 
     @Override
     public Optional<Orden> findById(Integer id) {
+
     return repoO.findById(id);
+
     }
 
 }

@@ -37,7 +37,9 @@ public class Orden {
     //@OneToOne(mappedBy = "orden", cascade = CascadeType.ALL, orphanRemoval = true)
     //-> Como hay mas de un propducto de diferente tipo uso
     //@OneToOne(fetch = FetchType.LAZY)
-    @OneToMany(mappedBy="orden")
+
+    @OneToMany(mappedBy ="orden")
+
     private List<DetalleOrden> detalle;
 
     public Orden() {
@@ -107,8 +109,6 @@ public class Orden {
     public void setDetalle(List<DetalleOrden> detalle) {
         this.detalle = detalle;
     }
-
-    
 
     @Override
     public String toString() {
