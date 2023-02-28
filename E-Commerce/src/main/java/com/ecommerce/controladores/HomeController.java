@@ -55,7 +55,7 @@ public class HomeController {
 
     @GetMapping("")
     public String home(Model model, HttpSession session) {
-        log.info("Session usuario: {}", session.getAttribute("idUsuario"));
+       // log.info("Session usuario: {}", session.getAttribute("idUsuario"));
         model.addAttribute("productos", servP.findAll());
         //session
         model.addAttribute("session",session.getAttribute("idUsuario"));
@@ -152,7 +152,7 @@ public class HomeController {
         Date fechaCreacion=new Date();
         orden.setFechaCreacion(fechaCreacion);
         orden.setNumero(servO.generarNumeroOrden());
-        //Momentaneamente hasta tener usuarios, forma quemada
+       
         Usuario usuario=servU.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
         orden.setUsuario(usuario);
         servO.save(orden);
@@ -172,7 +172,7 @@ public class HomeController {
         log.info("Nombre del Producto: {}", busqueda);
         List<Producto>productos=servP.findAll().
                 stream().filter(p->p.getNombre().
-                        contains(busqueda)).
+                contains(busqueda)).
                 collect(Collectors.toList());
         model.addAttribute("productos",productos);
         return "usuario/home";

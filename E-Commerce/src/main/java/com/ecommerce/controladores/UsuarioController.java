@@ -11,7 +11,7 @@ import com.ecommerce.servicios.IUsuarioServicio;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
-import net.bytebuddy.dynamic.DynamicType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +63,7 @@ public class UsuarioController {
 
         if (user.isPresent()) {
             session.setAttribute("idUsuario", user.get().getId());
-            System.out.println(user);
+            
             if (user.get().getRol().equals("ADMIN")) {
                 return "redirect:/administrador";
             } else {
