@@ -52,13 +52,15 @@ public class HomeController {
     List<DetalleOrden> detalles = new ArrayList();
     //Datos de la orden
     Orden orden = new Orden();
+    //El pedo esta por aca...!!!!
+    
 
     @GetMapping("")
     public String home(Model model, HttpSession session) {
-       // log.info("Session usuario: {}", session.getAttribute("idUsuario"));
+        //log.info("Session usuario: {}", session.getAttribute("idUsuario"));
         model.addAttribute("productos", servP.findAll());
         //session
-        model.addAttribute("session",session.getAttribute("idUsuario"));
+       // model.addAttribute("session",session.getAttribute("idUsuario"));
         
         
         return "usuario/home";
@@ -164,7 +166,7 @@ public class HomeController {
         //Limpiar lista y orden
         orden=new Orden();
         detalles.clear();
-        return "redirect:/";
+        return "usuario/index";
     }
     
     @PostMapping("/search")

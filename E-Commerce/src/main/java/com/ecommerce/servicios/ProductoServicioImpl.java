@@ -52,4 +52,10 @@ public class ProductoServicioImpl implements IProductoServicio {
        return repoP.findAll();
     }
 
+    @Override
+    public Optional<Producto> findByNombre(String nombre) {
+        
+     return repoP.findByNombre(nombre);
+    }
+
 }

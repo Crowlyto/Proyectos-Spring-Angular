@@ -5,16 +5,18 @@
 package com.ecommerce.controladores;
 
 import com.ecommerce.entidades.Orden;
+import com.ecommerce.entidades.Producto;
 import com.ecommerce.entidades.Usuario;
 import com.ecommerce.servicios.IOrdenServicio;
+import com.ecommerce.servicios.IProductoServicio;
 import com.ecommerce.servicios.IUsuarioServicio;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +37,29 @@ public class UsuarioController {
     private IUsuarioServicio servU;
     @Autowired
     private IOrdenServicio servO;
+    @Autowired
+    private IProductoServicio servP;
+    
+    BCryptPasswordEncoder passEncode=new BCryptPasswordEncoder();
 
+    @GetMapping("/index")
+    public String index(HttpSession session, Model model){
+        model.addAttribute("productos", servP.findAll());
+        Optional<Usuario> user = servU.findById(Integer.parseInt(session.getAttribute("idUsuario").toString()));
+        if (user.isPresent()) {
+            session.setAttribute("idUsuario", user.get().getId());
+            
+            if (user.get().getRol().equals("ADMIN")) {
+                return "redirect:/administrador";
+            } else{
+                return "/usuario/index";
+            }
+        } else {
+            log.info("Usuario no existe");
+        }
+        return "redirect:/";
+    }
+    
     @GetMapping("/registro")
     public String create() {
         return "usuario/registro";
@@ -44,8 +68,8 @@ public class UsuarioController {
     @PostMapping("/save")
     public String save(Usuario usuario) {
         log.info("Usuario registro: {}", usuario);
-
         usuario.setRol("USER");
+        usuario.setPassword(passEncode.encode(usuario.getPassword()));
         servU.save(usuario);
         return "redirect:/";
     }
@@ -56,28 +80,6 @@ public class UsuarioController {
         return "usuario/login";
     }
 
-    @PostMapping("/acces")
-    public String acces(Usuario usuario, HttpSession session) {
-        log.info("Acceso : {}", usuario);
-        Optional<Usuario> user = servU.findByEmail(usuario.getEmail());
-
-        if (user.isPresent()) {
-            session.setAttribute("idUsuario", user.get().getId());
-            
-            if (user.get().getRol().equals("ADMIN")) {
-                return "redirect:/administrador";
-            } else {
-                return "redirect:/";
-            }
-
-        } else {
-            log.info("Usuario no existe");
-            return "redirect:/";
-
-        }
-        
-    }
-    
     @GetMapping("/compras")
     public String obtenerCompras(HttpSession session, Model model) {
         model.addAttribute("session", session.getAttribute("idUsuario"));
@@ -97,4 +99,14 @@ public class UsuarioController {
         return "usuario/detallecompra";
 
     }
+    @GetMapping("/productohome/{id}")
+    public String productoHome(@PathVariable Integer id, Model model) {
+        Producto producto = new Producto();
+        Optional<Producto> respuesta = servP.get(id);
+        producto = respuesta.get();
+
+        model.addAttribute("producto", producto);
+        return "usuario/productohome";
+    }
+   
 }

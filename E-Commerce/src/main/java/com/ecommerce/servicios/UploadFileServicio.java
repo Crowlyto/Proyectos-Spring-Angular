@@ -26,6 +26,7 @@ public class UploadFileServicio {
             byte[] bytes=file.getBytes();
             Path path=Paths.get(folder+file.getOriginalFilename());
             Files.write(path, bytes);
+            
             return file.getOriginalFilename();
         }
         

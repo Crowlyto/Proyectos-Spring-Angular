@@ -21,6 +21,7 @@ public interface IProductoServicio {
     public void update(Producto producto);
     public void delete(Integer id);
     public List<Producto> findAll();
+    public Optional<Producto> findByNombre(String nombre);
     
     
     

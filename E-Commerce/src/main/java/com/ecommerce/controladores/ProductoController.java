@@ -21,8 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import com.ecommerce.servicios.IProductoServicio;
 import com.ecommerce.servicios.IUsuarioServicio;
-import com.ecommerce.servicios.UsuarioServicioImpl;
+
 import javax.servlet.http.HttpSession;
+
 
 /**
  *
@@ -79,7 +80,7 @@ public class ProductoController {
         return "productos/edit";
     }
 
-    //hay que revisar el metodo de modificar o cargar imagen porque borra la defaul.jpg cuando np deberia y me borra el usuario why? no se
+   
     @PostMapping("/update")
     public String update(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
         Producto p = new Producto();
@@ -110,5 +111,7 @@ public class ProductoController {
         servP.delete(id);
         return "redirect:/productos";
     }
+    
+    
 
 }
